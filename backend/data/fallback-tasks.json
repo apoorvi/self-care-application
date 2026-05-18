@@ -1,0 +1,40 @@
+{
+  "exercise": [
+    { "category": "exercise", "name": "Bodyweight Squats", "duration_mins": 3, "instructions": "3 sets of 10. Keep chest up, knees tracking toes.", "why": null },
+    { "category": "exercise", "name": "Push-up Circuit", "duration_mins": 4, "instructions": "4 sets of 8 push-ups with 30s rest. Modify on knees if needed.", "why": null },
+    { "category": "exercise", "name": "10-min Brisk Walk", "duration_mins": 10, "instructions": "Walk at a pace where you can still talk but feel slightly breathless.", "why": null },
+    { "category": "exercise", "name": "Jumping Jacks", "duration_mins": 3, "instructions": "3 sets of 30 seconds. Good warmup for morning energy.", "why": null }
+  ],
+  "mental": [
+    { "category": "mental", "name": "Box Breathing", "duration_mins": 5, "instructions": "Inhale 4 counts, hold 4, exhale 4, hold 4. Repeat 5 cycles.", "why": null },
+    { "category": "mental", "name": "Gratitude Journal", "duration_mins": 5, "instructions": "Write 3 things you're grateful for. Be specific — not just 'my family' but why.", "why": null },
+    { "category": "mental", "name": "Body Scan Meditation", "duration_mins": 7, "instructions": "Lie down. Slowly notice each body part from toes to head. Release tension as you go.", "why": null },
+    { "category": "mental", "name": "Stoic Morning Reflection", "duration_mins": 5, "instructions": "Identify one thing outside your control today. Decide to let it go.", "why": null }
+  ],
+  "reading": [
+    { "category": "reading", "name": "Read 1 Article + 3 Takeaways", "duration_mins": 5, "instructions": "Pick one article on a topic you're curious about. Write 3 bullet takeaways.", "why": null },
+    { "category": "reading", "name": "Book Chapter (10 mins)", "duration_mins": 10, "instructions": "Read one chapter or 10 pages of your current book. No phone.", "why": null },
+    { "category": "reading", "name": "Newsletter Review", "duration_mins": 5, "instructions": "Read one email newsletter you've been meaning to catch up on.", "why": null }
+  ],
+  "hanging": [
+    { "category": "hanging", "name": "Send a Check-in Text", "duration_mins": 3, "instructions": "Message one friend or family member you haven't spoken to in a while. Keep it genuine.", "why": null },
+    { "category": "hanging", "name": "Voice Note to a Friend", "duration_mins": 5, "instructions": "Record a 2-minute voice note to someone you care about. More personal than text.", "why": null },
+    { "category": "hanging", "name": "Schedule a Catch-up", "duration_mins": 5, "instructions": "Pick someone you've been meaning to see. Send a specific date/time invite.", "why": null }
+  ],
+  "supplements": [
+    { "category": "supplements", "name": "Morning Hydration", "duration_mins": 2, "instructions": "Drink 500ml of water before your first coffee. Add electrolytes if you exercise.", "why": null },
+    { "category": "supplements", "name": "Supplement Check-in", "duration_mins": 2, "instructions": "Take your daily supplements with a full glass of water.", "why": null },
+    { "category": "supplements", "name": "Evening Magnesium", "duration_mins": 2, "instructions": "Take magnesium glycinate 30-60 mins before bed for better sleep.", "why": null }
+  ],
+  "neck_shoulder": [
+    { "category": "neck_shoulder", "name": "Chin Tucks", "duration_mins": 3, "instructions": "Sit tall. Gently retract chin straight back (not down). Hold 5s, repeat 10x. 3 sets.", "why": null },
+    { "category": "neck_shoulder", "name": "Doorway Chest Stretch", "duration_mins": 3, "instructions": "Stand in doorway, arms at 90°. Lean forward gently until you feel chest stretch. Hold 30s x 3.", "why": null },
+    { "category": "neck_shoulder", "name": "Neck Side Stretch", "duration_mins": 2, "instructions": "Drop right ear to right shoulder. Hold 30s. Repeat left side. 2 rounds each.", "why": null },
+    { "category": "neck_shoulder", "name": "Shoulder Rolls", "duration_mins": 2, "instructions": "Roll shoulders forward 10x, backward 10x. Then add neck rotation each direction.", "why": null }
+  ],
+  "workout": [
+    { "category": "workout", "name": "Upper Body Day", "duration_mins": 15, "instructions": "Push-ups 4x10, Pike push-ups 3x8, Tricep dips 3x10, Diamond push-ups 3x8.", "why": null },
+    { "category": "workout", "name": "Lower Body Day", "duration_mins": 15, "instructions": "Squats 4x12, Lunges 3x10 each, Glute bridges 3x15, Calf raises 3x20.", "why": null },
+    { "category": "workout", "name": "Core Circuit", "duration_mins": 10, "instructions": "Plank 30s, Dead bug 10 reps, Hollow hold 20s, Bicycle crunches 20 reps. 3 rounds.", "why": null }
+  ]
+}
