@@ -11,7 +11,10 @@ const weeklyRoute = require('./routes/weekly');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:4173'] }));
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? [...process.env.CORS_ORIGIN.split(','), 'http://localhost:5173', 'http://localhost:4173']
+  : ['http://localhost:5173', 'http://localhost:4173'];
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));

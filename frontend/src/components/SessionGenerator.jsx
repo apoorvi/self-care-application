@@ -1,4 +1,6 @@
 import { useState } from 'react';
+
+const BASE = import.meta.env.VITE_API_URL ?? '';
 import MoodSelector from './MoodSelector.jsx';
 import LoadingSession from './LoadingSession.jsx';
 import TaskCard from './TaskCard.jsx';
@@ -58,7 +60,7 @@ export default function SessionGenerator({ completionHistory, onTaskComplete }) 
     setIsOffline(false);
     setCompletedTasks({});
     try {
-      const response = await fetch('/api/generate-session', {
+      const response = await fetch(`${BASE}/api/generate-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -113,7 +115,7 @@ export default function SessionGenerator({ completionHistory, onTaskComplete }) 
 
   const swapTask = async (index, task) => {
     try {
-      const res = await fetch('/api/suggest-alternative', {
+      const res = await fetch(`${BASE}/api/suggest-alternative`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ category: task.category, currentTask: task, mood, completionHistory })

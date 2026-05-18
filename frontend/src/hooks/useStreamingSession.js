@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const BASE = import.meta.env.VITE_API_URL ?? '';
+
 export function useStreamingSession() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -12,7 +14,7 @@ export function useStreamingSession() {
     setIsOffline(false);
 
     try {
-      const response = await fetch('/api/generate-session', {
+      const response = await fetch(`${BASE}/api/generate-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(params)
@@ -71,7 +73,7 @@ export function useStreamingSession() {
 
   const swapTask = async (index, { category, currentTask, mood, completionHistory }) => {
     try {
-      const response = await fetch('/api/suggest-alternative', {
+      const response = await fetch(`${BASE}/api/suggest-alternative`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ category, currentTask, mood, completionHistory })
