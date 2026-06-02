@@ -1,15 +1,37 @@
-import { useLocalStorage } from './useLocalStorage.js';
+import { useState, useEffect } from 'react';
 
+const BASE = import.meta.env.VITE_API_URL ?? '';
 const today = () => new Date().toISOString().split('T')[0];
 
 export function useCompletionHistory() {
-  const [history, setHistory] = useLocalStorage('completionHistory', {});
+  const [history, setHistory] = useState({});
+
+  useEffect(() => {
+    fetch(`${BASE}/api/history`)
+      .then(r => r.json())
+      .then(data => setHistory(data))
+      .catch(() => {});
+  }, []);
 
   const markComplete = (category) => {
-    setHistory(prev => ({
-      ...prev,
-      [today()]: { ...(prev[today()] || {}), [category]: true }
-    }));
+    const date = today();
+    const value = true;
+    setHistory(prev => ({ ...prev, [date]: { ...(prev[date] || {}), [category]: value } }));
+    fetch(`${BASE}/api/history`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ date, category, value })
+    });
+  };
+
+  const toggleComplete = (date, category) => {
+    const newValue = !(history[date]?.[category]);
+    setHistory(prev => ({ ...prev, [date]: { ...(prev[date] || {}), [category]: newValue } }));
+    fetch(`${BASE}/api/history`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ date, category, value: newValue })
+    });
   };
 
   const getWeekCounts = () => {
@@ -39,5 +61,5 @@ export function useCompletionHistory() {
     return days;
   };
 
-  return { history, markComplete, getWeekCounts, getLast7Days };
+  return { history, markComplete, toggleComplete, getWeekCounts, getLast7Days };
 }

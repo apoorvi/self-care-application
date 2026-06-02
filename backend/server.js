@@ -7,6 +7,8 @@ const generateRoute = require('./routes/generate');
 const alternativeRoute = require('./routes/alternative');
 const exploreRoute = require('./routes/explore');
 const weeklyRoute = require('./routes/weekly');
+const notesRoute = require('./routes/notes');
+const historyRoute = require('./routes/history');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,6 +24,8 @@ app.use('/api/generate-session', generateRoute);
 app.use('/api/suggest-alternative', alternativeRoute);
 app.use('/api/explore', exploreRoute);
 app.use('/api/weekly-plan', weeklyRoute);
+app.use('/api/notes', notesRoute);
+app.use('/api/history', historyRoute);
 
 app.use((err, req, res, next) => {
   console.error(err.message);
@@ -30,6 +34,8 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Self-care backend running on port ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Self-care backend running on port ${PORT}`));
+}
 
 module.exports = app;

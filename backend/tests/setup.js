@@ -28,14 +28,12 @@ jest.mock('@anthropic-ai/sdk', () => {
     return stream;
   };
 
-  return {
-    default: jest.fn().mockImplementation(() => ({
-      messages: {
-        stream: jest.fn().mockReturnValue(makeStream(MOCK_SESSION)),
-        create: jest.fn().mockResolvedValue({
-          content: [{ type: 'text', text: JSON.stringify(MOCK_TASK) }]
-        })
-      }
-    }))
-  };
+  return jest.fn().mockImplementation(() => ({
+    messages: {
+      stream: jest.fn().mockReturnValue(makeStream(MOCK_SESSION)),
+      create: jest.fn().mockResolvedValue({
+        content: [{ type: 'text', text: JSON.stringify(MOCK_TASK) }]
+      })
+    }
+  }));
 });

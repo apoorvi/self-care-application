@@ -1,5 +1,7 @@
 import { useCompletionHistory } from '../hooks/useCompletionHistory.js';
+import { useArticleNotes } from '../hooks/useArticleNotes.js';
 import SessionGenerator from '../components/SessionGenerator.jsx';
+import ArticleNotePrompt from '../components/ArticleNotePrompt.jsx';
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const HOURS = ['midnight', 'night', 'night', 'night', 'night', 'morning', 'morning', 'morning', 'morning',
@@ -15,6 +17,7 @@ const styles = {
 
 export default function Home() {
   const { markComplete, getWeekCounts } = useCompletionHistory();
+  const { addNote, hasNoteToday, loading: notesLoading } = useArticleNotes();
   const now = new Date();
   const hour = now.getHours();
   const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
@@ -27,6 +30,9 @@ export default function Home() {
         <div style={styles.greeting}>{greet} {hour < 12 ? '☀️' : hour < 17 ? '🌤️' : '🌙'}</div>
         <div style={styles.date}>{dayName}, {dateStr}</div>
       </div>
+      {!notesLoading && !hasNoteToday() && (
+        <ArticleNotePrompt onSave={addNote} />
+      )}
       <SessionGenerator
         completionHistory={getWeekCounts()}
         onTaskComplete={markComplete}

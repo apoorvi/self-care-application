@@ -1,4 +1,7 @@
 import { useCompletionHistory } from '../hooks/useCompletionHistory.js';
+import { useArticleNotes } from '../hooks/useArticleNotes.js';
+
+const BASE = import.meta.env.VITE_API_URL ?? '';
 
 const CATEGORIES = ['exercise', 'mental', 'reading', 'hanging', 'supplements', 'neck_shoulder', 'workout'];
 const CATEGORY_EMOJI = {
@@ -23,7 +26,9 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 12
+    fontSize: 12,
+    cursor: 'pointer',
+    userSelect: 'none'
   }),
   summary: {
     marginTop: 24,
@@ -34,11 +39,38 @@ const styles = {
   summaryTitle: { fontSize: 14, fontWeight: 600, marginBottom: 12 },
   statRow: { display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 13 },
   statLabel: { color: 'var(--text-secondary)' },
-  statVal: { color: 'var(--accent-soft)', fontWeight: 600 }
+  statVal: { color: 'var(--accent-soft)', fontWeight: 600 },
+  notesSection: { marginTop: 24 },
+  notesSectionTitle: { fontSize: 16, fontWeight: 700, marginBottom: 4 },
+  notesSectionSub: { fontSize: 13, color: 'var(--text-secondary)', marginBottom: 12 },
+  noteCard: {
+    background: 'var(--bg-card)',
+    borderRadius: 'var(--radius)',
+    padding: '12px 16px',
+    marginBottom: 10,
+    borderLeft: '3px solid var(--accent-soft)'
+  },
+  noteDate: { fontSize: 11, color: 'var(--text-secondary)', marginBottom: 4 },
+  noteText: { fontSize: 14, lineHeight: 1.5 },
+  exportBtn: {
+    display: 'inline-block',
+    marginTop: 12,
+    background: 'var(--bg-elevated)',
+    border: 'none',
+    borderRadius: 8,
+    padding: '8px 16px',
+    fontSize: 13,
+    fontWeight: 600,
+    color: 'var(--text-primary)',
+    cursor: 'pointer',
+    textDecoration: 'none'
+  },
+  empty: { fontSize: 13, color: 'var(--text-secondary)' }
 };
 
 export default function History() {
-  const { getLast7Days, getWeekCounts } = useCompletionHistory();
+  const { getLast7Days, getWeekCounts, toggleComplete } = useCompletionHistory();
+  const { notes } = useArticleNotes();
   const days = getLast7Days();
   const counts = getWeekCounts();
   const total = Object.values(counts).reduce((s, v) => s + v, 0);
@@ -65,7 +97,15 @@ export default function History() {
                 <td style={styles.tdCat}>{CATEGORY_EMOJI[cat]} {cat}</td>
                 {days.map(({ date, completions }) => (
                   <td key={date} style={{ padding: '4px 6px' }}>
-                    <div style={styles.dot(!!completions[cat])}>
+                    <div
+                      style={styles.dot(!!completions[cat])}
+                      onClick={() => toggleComplete(date, cat)}
+                      data-testid={`dot-${cat}-${date}`}
+                      title={`${completions[cat] ? 'Unmark' : 'Mark'} ${cat} for ${date}`}
+                      role="button"
+                      aria-pressed={!!completions[cat]}
+                      aria-label={`${completions[cat] ? 'Unmark' : 'Mark'} ${cat} complete for ${date}`}
+                    >
                       {completions[cat] ? '✓' : ''}
                     </div>
                   </td>
@@ -88,6 +128,25 @@ export default function History() {
           <span style={styles.statLabel}>Total completions</span>
           <span style={styles.statVal}>{total}</span>
         </div>
+      </div>
+      <div style={styles.notesSection}>
+        <div style={styles.notesSectionTitle}>Reading Notes</div>
+        <div style={styles.notesSectionSub}>Articles worth remembering</div>
+        {notes.length === 0 ? (
+          <div style={styles.empty}>No notes yet — save one from the Home tab.</div>
+        ) : (
+          notes.map((note, i) => (
+            <div key={i} style={styles.noteCard}>
+              <div style={styles.noteDate}>{note.date}</div>
+              <div style={styles.noteText}>{note.text}</div>
+            </div>
+          ))
+        )}
+        {notes.length > 0 && (
+          <a href={`${BASE}/api/notes/export`} download="reading-notes.txt" style={styles.exportBtn}>
+            Download as .txt
+          </a>
+        )}
       </div>
     </div>
   );
